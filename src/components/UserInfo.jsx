@@ -7,9 +7,12 @@ const UserInfo = (props) => {
     const token = localStorage.getItem('token')
     useEffect(() => {
         axios
-            .post(`https://task-euo4.onrender.com/auth/${token}`)
+            .get(`https://task-euo4.onrender.com/auth/${token}`)
             .then((res) => {
                 setFullName(res.data.fullName)
+            })
+            .catch((err) => {
+                console.log(err)
             })
     }, [token, setFullName])
     const userName = '{ ' + fullName + ' }'
