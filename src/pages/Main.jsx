@@ -7,18 +7,19 @@ import Widgets from "../components/Widgets";
 import MainTasks from "../components/MainTasks";
 
 const Main = (props) => {
+    const { setIsLoggedIn, fullName, setToken, tasks, setUser, isDarkMode } = props;
     const navigate = useNavigate();
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
-            props.setIsLoggedIn(true);
+            setIsLoggedIn(true);
         } else {
-            props.setIsLoggedIn(false);
+            setIsLoggedIn(false);
         }
-    }, [props.setIsLoggedIn]);
+    }, [setIsLoggedIn]);
 
     if (localStorage.getItem('token')) {
-        props.setToken(localStorage.getItem('token'))
+        setToken(localStorage.getItem('token'))
     } else {
         navigate('/login');
         return;

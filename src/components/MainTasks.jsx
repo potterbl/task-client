@@ -21,7 +21,7 @@ const MainTasks = (props) => {
                 console.log(err)
             })
 
-    }, [setTasks])
+    }, [setTasks, token])
 
     const handleRemove = (taskId) => {
         axios
@@ -140,7 +140,9 @@ const MainTasks = (props) => {
                         {
                             tasks.map((listItem) => {
                                 if(listItem.priority === 'high' && listItem.done !== true){
-                                    return <li>{listItem.task}</li>
+                                    return <li>{listItem.task}</li>;
+                                } else {
+                                    return null;
                                 }
                             })
                         }
