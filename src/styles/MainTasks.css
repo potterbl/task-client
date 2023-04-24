@@ -1,0 +1,105 @@
+.main__tasks{
+    margin: 32px 0;
+    display: grid;
+    grid-template-columns: repeat(3, calc(33.33% - 11px));
+    column-gap: 16px;
+}
+.task__info{
+    width: 100%;
+}
+.info__task{
+    width: 100%;
+    padding: 8px 16px;
+    box-sizing: border-box;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+.task__wrapper{
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+}
+#to__do{
+    color: white;
+}
+.info__task{
+    border-top: 1px solid #5b5b5b;
+    border-bottom: 1px solid #5b5b5b;
+    position: relative;
+}
+.info__task span{
+    padding: 2px 8px;
+    border-radius: 8px;
+    z-index: 0;
+}
+.info__task span.low{
+    background-color: #15ce00;
+}
+.info__task span.medium{
+    background-color: #ce8c03;
+}
+.info__task span.high{
+    background-color: #c70000;
+}
+#priority{
+    padding: 20px 15px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    background-color: #A1A1A1FF;
+    height: max-content;
+}
+.current__priority{
+    color: #3e3ee5;
+}
+.create__task{
+    margin-top: 10px;
+}
+.create__task button{
+    background-color: transparent;
+    border: 3px solid white;
+    padding: 4px 16px;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.additional{
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+}
+.removeButton{
+    background-color: transparent;
+    border: 0;
+    background-image: url('../images/delete.png');
+    background-size: cover;
+    background-position: center;
+    width: 26px;
+    height: 26px;
+}
+.info__task input{
+    outline: none;
+    border: 2px solid white;
+    background-color: transparent;
+    color: white;
+    border-radius: 8px;
+    padding: 4px 8px;
+}
+.info__task select{
+    outline: none;
+    border: 2px solid white;
+    background-color: transparent;
+    color: white;
+    border-radius: 8px;
+    padding: 4px 8px;
+}
+.info__task option{
+    background-color: black;
+}
+.buttonCreate {
+    background-color: #fff;
+    border: 0;
+    color: black;
+    border-radius: 8px;
+    padding: 6px 12px;
+}
