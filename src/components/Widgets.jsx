@@ -19,9 +19,10 @@ const Widgets = () => {
     useEffect(() => {
         const intervalID = setInterval(() => {
             setTime(new Date())
+            setDay(new Date().getDay())
         }, 1000)
         return () => clearInterval(intervalID)
-    }, [setTime])
+    }, [setTime, setDay])
     axios
         .get('https://api.openweathermap.org/data/2.5/weather?q=Kyiv&appid=c10561076069d6292ed48934a94279ce')
         .then((res) => {
