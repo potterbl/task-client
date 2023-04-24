@@ -4,7 +4,7 @@ import '../styles/UserInfo.css'
 import axios from "axios";
 const UserInfo = (props) => {
     const [fullName, setFullName] = useState('')
-    const token = localStorage.getItem('token')
+    const token = JSON.parse(localStorage.getItem('token'))
     useEffect(() => {
         axios
             .get(`https://task-euo4.onrender.com/auth/${token}`)
