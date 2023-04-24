@@ -7,7 +7,7 @@ import Widgets from "../components/Widgets";
 import MainTasks from "../components/MainTasks";
 
 const Main = (props) => {
-    const { setIsLoggedIn, fullName, setToken, tasks, setUser, isDarkMode } = props;
+    const { setIsLoggedIn, setToken } = props;
     const navigate = useNavigate();
 
     useEffect(() => {
