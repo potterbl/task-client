@@ -9,32 +9,42 @@ import weatherRain from '../images/weatherRain.png'
 import weatherThunderstorm from '../images/weatherThunderstorm.png'
 import weatherSnow from '../images/weatherSnow.png'
 const Widgets = () => {
-    const [weather, setWeather] = useState('')
-    const [temp, setTemp] = useState('')
-    const [city, setCity] = useState('')
-    const [time, setTime] = useState(new Date())
-    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-    const [day, setDay] = useState(new Date().getDay())
+    const [weather, setWeather] = useState('');
+    const [temp, setTemp] = useState('');
+    const [city, setCity] = useState('');
+    const [time, setTime] = useState(new Date());
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const [day, setDay] = useState(new Date().getDay());
 
     useEffect(() => {
         const intervalID = setInterval(() => {
             setTime(new Date())
             setDay(new Date().getDay())
-        }, 1000)
-        return () => clearInterval(intervalID)
-    }, [setTime, setDay])
-    axios
-        .get('https://api.openweathermap.org/data/2.5/weather?q=Kyiv&appid=c10561076069d6292ed48934a94279ce')
-        .then((res) => {
-            const data = res.data
-            setWeather(data.weather[0].main)
-            const tempCelsius = data.main.temp - 273.15;
-            setTemp(tempCelsius.toFixed(2))
-            setCity(data.name)
-        })
-        .catch((err) => {
-            console.log(err)
-        })
+        }, 1000);
+
+        const successCallback = async (position) => {
+            const {latitude, longitude} = position.coords;
+            try {
+                const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=c10561076069d6292ed48934a94279ce`);
+                const data = response.data;
+                setWeather(data.weather[0].main);
+                const tempCelsius = data.main.temp - 273.15;
+                setTemp(tempCelsius.toFixed(2));
+                setCity(data.name);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        const errorCallback = (error) => {
+            console.log(error);
+        }
+
+        navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+
+        return () => clearInterval(intervalID);
+    }, [setWeather, setTemp, setCity, setTime, setDay]);
+
     return (
         <div>
             <Container>
