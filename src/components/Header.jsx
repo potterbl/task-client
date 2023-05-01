@@ -3,7 +3,7 @@ import '../styles/Header.css'
 // import hamburgerMenuWhite from '../images/menuWhite.svg'
 // import hamburgerMenuBlack from '../images/menuBlack.svg'
 const Header = (props) => {
-    const [showMenu, setShowMenu] = useState(false)
+    // const [showMenu, setShowMenu] = useState(false)
 
     // const handleMenuClick = () => {
     //     setShowMenu(!showMenu);
