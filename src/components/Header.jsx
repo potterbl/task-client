@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
+// import React, {useState} from 'react';
 import '../styles/Header.css'
 // import hamburgerMenuWhite from '../images/menuWhite.svg'
 // import hamburgerMenuBlack from '../images/menuBlack.svg'
