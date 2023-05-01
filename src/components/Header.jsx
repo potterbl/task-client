@@ -5,9 +5,9 @@ import '../styles/Header.css'
 const Header = (props) => {
     const [showMenu, setShowMenu] = useState(false)
 
-    const handleMenuClick = () => {
-        setShowMenu(!showMenu);
-    };
+    // const handleMenuClick = () => {
+    //     setShowMenu(!showMenu);
+    // };
     return (
         <div className={['header', props.isDarkMode ? 'white__font' : ''].join(' ')}>
             {/*<div className="left">*/}
