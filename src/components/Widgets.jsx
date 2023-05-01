@@ -40,23 +40,23 @@ const Widgets = () => {
             <Container>
                 <div className="widgets">
                     <div className="widget">
-                        <div className="total__widget">
-                            <div className="score__line">
-                                <div className="score">
-                                </div>
-                                <p>Year</p>
-                            </div>
-                            <div className="score__line">
-                                <div className="score">
-                                </div>
-                                <p>Week</p>
-                            </div>
-                            <div className="score__line">
-                                <div className="score">
-                                </div>
-                                <p>Day</p>
-                            </div>
-                        </div>
+                        {/*<div className="total__widget">*/}
+                        {/*    <div className="score__line">*/}
+                        {/*        <div className="score">*/}
+                        {/*        </div>*/}
+                        {/*        <p>Year</p>*/}
+                        {/*    </div>*/}
+                        {/*    <div className="score__line">*/}
+                        {/*        <div className="score">*/}
+                        {/*        </div>*/}
+                        {/*        <p>Week</p>*/}
+                        {/*    </div>*/}
+                        {/*    <div className="score__line">*/}
+                        {/*        <div className="score">*/}
+                        {/*        </div>*/}
+                        {/*        <p>Day</p>*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
                     </div>
                     <div className="widget" id={'widget__weather'}>
                         <div className="weather">

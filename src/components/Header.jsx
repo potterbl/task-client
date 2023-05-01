@@ -10,16 +10,16 @@ const Header = (props) => {
     };
     return (
         <div className={['header', props.isDarkMode ? 'white__font' : ''].join(' ')}>
-            <div className="left">
-                {props.isDarkMode ? (
-                        <img src={hamburgerMenuWhite} alt="Menu" onClick={handleMenuClick}/>
-                    ) : (
-                        <img src={hamburgerMenuBlack} alt="Menu" onClick={handleMenuClick}/>
-                    )}
-                <div className={["menu", showMenu ? 'menu__active' : ''].join(' ')}>
+            {/*<div className="left">*/}
+            {/*    {props.isDarkMode ? (*/}
+            {/*            <img src={hamburgerMenuWhite} alt="Menu" onClick={handleMenuClick}/>*/}
+            {/*        ) : (*/}
+            {/*            <img src={hamburgerMenuBlack} alt="Menu" onClick={handleMenuClick}/>*/}
+            {/*        )}*/}
+            {/*    <div className={["menu", showMenu ? 'menu__active' : ''].join(' ')}>*/}
 
-                </div>
-            </div>
+            {/*    </div>*/}
+            {/*</div>*/}
             <div className="right">
                 {props.isLoggedIn ? (
                     <p onClick={() => {props.setIsloggedIn(false); props.setToken(''); localStorage.removeItem('token')}}>Log out</p>
