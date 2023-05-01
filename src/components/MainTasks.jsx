@@ -130,7 +130,7 @@ const MainTasks = (props) => {
                             <button
                                 onClick={handleShowCreate}
                             >
-                                Create task
+                                {createShown ? 'Cancel' : 'Create task'}
                             </button>
                         </div>
                     </div>
