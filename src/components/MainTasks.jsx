@@ -14,8 +14,7 @@ const MainTasks = (props) => {
         axios
             .get(`https://task-euo4.onrender.com/auth/${token}`)
             .then((res) => {
-                setTasks(res.data.tasks)
-                console.log(res.data.tasks)
+                setTasks([JSON.parse(res.data.tasks)])
             })
             .catch((err) => {
                 console.log(err)
