@@ -14,12 +14,11 @@ const MainTasks = (props) => {
         axios
             .get(`https://task-euo4.onrender.com/auth/${token}`)
             .then((res) => {
-                setTasks([JSON.parse(res.data.tasks)])
+                setTasks(res.data.tasks)
             })
             .catch((err) => {
                 console.log(err)
             })
-
     }, [setTasks, token])
 
     const handleRemove = (taskId) => {

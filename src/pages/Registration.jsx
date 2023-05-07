@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import '../styles/Registration.css'
 import {useNavigate} from "react-router-dom";
+import noPic from '../images/noPic.jpg';
 
 const Registration = (props) => {
     const navigate = useNavigate()
@@ -10,38 +11,84 @@ const Registration = (props) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passVerify, setPassVerify] = useState('')
-    const [avatar, setAvatar] = useState(null) // добавляем состояние для фото
+    const [avatar, setAvatar] = useState(null);
+
+
+    const [passDirty, setPassDirty] = useState('')
+    // const [emailDirty, setEmailDirty] = useState('')
 
     const handleCreate = () => {
-        if(fullName !== '' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && password === passVerify){
-            const formData = new FormData(); // создаем экземпляр FormData
+        if (fullName !== '' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && password === passVerify) {
+            const formData = new FormData();
             formData.append('fullName', fullName);
             formData.append('email', email);
             formData.append('password', password);
-            formData.append('tasks', JSON.stringify({"id": "create-task", "task": "create task", "priority": "high", "done": false}));
-            formData.append('avatar', avatar); // добавляем фото в FormData
 
-            axios
-                .post('https://task-euo4.onrender.com/auth/register', formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data' // указываем тип содержимого как multipart/form-data
-                    }
-                })
-                .then((response) => {
-                    props.setToken(response.data.token);
-                    props.setIsLoggedIn(true)
-                    navigate('/');
-                    localStorage.setItem('token', JSON.stringify(response.data.token))
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
+            // Если пользователь загрузил аватар, добавляем его в formData
+            if (avatar) {
+                formData.append('avatar', avatar);
+            } else {
+                // Если пользователь не загрузил аватар, используем noPic.jpg из локального хранилища
+                fetch(noPic)
+                    .then(response => response.blob())
+                    .then(blob => {
+                        formData.append('avatar', blob, 'noPic.jpg');
+                        // Отправляем данные на сервер
+                        sendFormData(formData);
+                    })
+                    .catch(error => {
+                        console.error('Ошибка при загрузке файла noPic.jpg: ', error);
+                    });
+            }
+
+            // Отправляем данные на сервер
+            sendFormData(formData);
         }
+    }
+
+    const sendFormData = (formData) => {
+        axios
+            .post('https://task-euo4.onrender.com/auth/register', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+            .then(response => {
+                props.setToken(response.data.token);
+                props.setIsLoggedIn(true);
+                axios
+                    .post(`https://task-euo4.onrender.com/task/create/${response.data.token}`, {
+                        task: "create task",
+                        priority: "high",
+                        done: false
+                    })
+                    .then(res => {})
+                    .catch(err => {
+                        console.log(err)
+                    })
+                localStorage.setItem('token', JSON.stringify(response.data.token))
+                setTimeout(() => {
+                    navigate('/');
+                }, 100)
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     const handleFileSelect = (event) => {
         setAvatar(event.target.files[0]);
     };
+
+    useEffect(() => {
+        if(password.length < 6 && password !== ''){
+            setPassDirty('Password length must be more or equal to 6 symbols')
+        } else if(password !== passVerify && passVerify !== ''){
+            setPassDirty('Password verify must be equal to password')
+        } else {
+            setPassDirty('')
+        }
+    }, [password, passVerify])
 
     return (
         <div>
@@ -59,6 +106,7 @@ const Registration = (props) => {
                         placeholder={'Enter email...'}
                         onInput={(e) => {setEmail(e.target.value)}}
                     />
+                    <p style={{color: 'red', wordBreak: 'break-word', maxWidth: '300px'}}>{passDirty}</p>
                     <input
                         value={password}
                         type="password"
@@ -69,7 +117,7 @@ const Registration = (props) => {
                         value={passVerify}
                         type="password"
                         placeholder={'Verify password...'}
-                        onInput={(e) => {setPassVerify(e.target.value)}}
+                        onInput={(e) => {setPassVerify(e.target.value);}}
                     />
                     <input type="file" onChange={handleFileSelect} />
                     <button onClick={handleCreate}>Create account</button>
